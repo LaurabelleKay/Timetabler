@@ -6,6 +6,6 @@
  
  %There is an assignment that 0 to 4 people can go on.
  
- {assignment(P))} :- person(P).
+ {assignment(P)} :- person(P).
  
  %Generates all possible combinations.

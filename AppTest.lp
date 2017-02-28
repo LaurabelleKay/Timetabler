@@ -1,2 +1,2 @@
 works(app).
-woeks(droidedit).
+works(droidedit).

@@ -20,3 +20,4 @@ isAfter(P1,P2,L) :- at(P1,L,T), at(P2,L,T-N), person(P1), person(P2), place(L), 
 
 #show go/3.
 #show at/3.
+#show isAfter/3.

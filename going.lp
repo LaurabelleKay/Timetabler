@@ -13,8 +13,8 @@ at(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
 
 
 
-%Don't go to same place twice
-%:- go(P,L,T) , go(P,L,T+N), N = 1..3.
+%Don't go to a place you're at
+:- on(P,L,T),go(P,L,T+1).
 
 #show go/3.
 #show at/3.

@@ -17,4 +17,4 @@ on(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
 %:- go(P,L,T) , go(P,L,T+N), N = 1..3.
 
 #show go/3.
-#show isAt/2.
+#show on/3.

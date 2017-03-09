@@ -1,8 +1,9 @@
 %Test
 
-person(1..2).
-place(shop).
-place(uni).
+person(malon).
+person(saria).
+place(kakarikoVillage).
+place(lostWoods).
 timestep(1..3).
 
 1{go(P,L,T) : person(P),place(L) }1 :- timestep(T).

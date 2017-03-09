@@ -8,7 +8,7 @@ timestep(1..3).
 
 1{go(P,L,T) : person(P),place(L) }1 :- timestep(T).
 
-on(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
+at(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
 
 
 
@@ -17,4 +17,4 @@ on(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
 %:- go(P,L,T) , go(P,L,T+N), N = 1..3.
 
 #show go/3.
-#show on/3.
+#show at/3.

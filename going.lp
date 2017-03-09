@@ -16,7 +16,7 @@ at(P,L,T) :- go(P,L,T), person(P), place(L), timestep(T).
 :- at(P,L,T),go(P,L,T+1).
 
 %Needs to be LIFO for people going
-isAfter(P1,P2,L) :- at(P1,L,T), at(P2,L,T-N), person(P1), person(P2), place(L), timestep(T) N=1..2.
+isAfter(P1,P2,L) :- at(P1,L,T), at(P2,L,T-N), person(P1), person(P2), place(L), timestep(T), N=1..2.
 
 #show go/3.
 #show at/3.

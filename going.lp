@@ -1,7 +1,6 @@
 %Test
 
-person(a).
-person(b).
+person(1..2).
 place(shop).
 place(uni).
 timestep(1..3).

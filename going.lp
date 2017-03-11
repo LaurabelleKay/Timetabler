@@ -17,4 +17,3 @@ initiallyAt(P,lostWoods) :- person(P).
 %:- initial.
 
 #show go/3.
-#show initiallyAt/2.

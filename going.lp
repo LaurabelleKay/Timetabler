@@ -9,7 +9,7 @@ timestep(1..3).
 1{go(P,L,T) : person(P),place(L) }1 :- timestep(T).
 
 initiallyAt(P,lostWoods) :- person(P).
-:- go(P,lostWoods,T), person(P),first(T).
+:- go(P,lostWoods,1), person(P).
 
 %Only one person can go at a time(Done)
 %A person shouldn't go to where they're at

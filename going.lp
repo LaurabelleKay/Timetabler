@@ -14,7 +14,7 @@ initiallyAt(P,lostWoods) :- person(P).
 
 %Only one person can go at a time(Done)
 %A person shouldn't go to where they're at
-:- go(P,L1,T), go(P,L2,T), person(P), place(L), L1 == L2, time(T).
+:- go(P,L1,T), go(P,L2,T+N), person(P), place(L), L1 == L2, time(T), N = 1..2, not go(P,L3,T+(N-1)), L3 != L1.
 
 %initial :- go(P,lostwoods,T), person(P), first(T).
 %:- initial.

@@ -4,7 +4,7 @@ person(malon).
 person(saria).
 place(kakarikoVillage).
 place(lostWoods).
-timestep(0..2).
+timestep(1..3).
 
 1{go(P,L,T) : person(P),place(L) }1 :- timestep(T).
 

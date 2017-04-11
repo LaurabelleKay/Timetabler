@@ -1,0 +1,158 @@
+timestep(9..12).
+day(1..2).
+student(1).
+student(2).
+unit(elec;math;prog).
+takes(1,prog;1,elec).
+takes(2,prog;2,math).
+lecturer(a).
+lecturer(b).
+teaches(a,prog;a,elec).
+teaches(b,math).
+unavailable(a,10,1;a,11,2).
+unavailable(b,9,1;b,10,2).
+room(102;103).
+capacity(102,4;103,5).
+
+%** @block Timetabler {
+Timetabler which creates a tmetable based on inputs...
+*%
+
+%**
+	@atom day(1..2) 
+	number of teaching days
+
+	@atom timestep(9..12)
+	range of teaching hours defined as 9am to 6pm
+
+	@atom student(S)
+	A student
+
+	@atom unit(U)
+	A unit
+
+	@atom lecturer(L)
+	A lecturer
+
+	@atom room(R)
+	A room
+
+	@atom takes(S,U)
+	Student S takes unit U
+
+	@atom teaches(L,U)
+	Lecturer L teaches unit U
+
+	@atom unavailable(L,T,D)
+	Lecturer L is unavailable at time T on day D
+
+	@atom capacity(R,Z)
+	Room R has capacity Z
+
+	@input student/1, unit/1, lecturer/1, room/1, takes/2, teaches/2,
+ 	unavailable/2, capacity/2
+
+	@output at/6
+*%
+
+%** @term S
+	A student number
+*%
+
+%** @term U
+	A unit code/name 
+*%
+
+%** @term L
+	The name of a lecturer
+*%
+
+%** @term R
+	A room number
+*%
+
+%** @term Z
+	The number of students a room can hold 
+*%
+
+%** @term T 
+	A time in the day which ranges from 09:00 to 18:00
+	@from 9,10,11,12,13,14,15,16,17,18
+*%
+
+%** @term D
+	A day in the week ranging form Monday to Friday
+	@from 1,2,3,4,5
+	
+*%
+
+%** @block Schedule {
+	%Generate between _ and _ lectures a day. For each unit, generate between _ and _ lectures a week
+*%
+	1{lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
+	1 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 3 :- unit(U).
+%** }*%
+
+%** @block Student {
+	A student is at a lecture, if there is a scheduled lecture for a unit, and the student takes that unit
+*%
+	at(S,U,R,L,T,D):- lecture(U,R,L,T,D), takes(S,U).
+	at(S,U,T,D):- at(S,U,_,_,T,D). 
+
+%** }*%
+
+%** @block Lecturer {
+	A lecturer is teaching, if there is a lecture scheduled and the lecturer teaches that unit
+*%
+	teaching(U,L,T,D) :- lecture(U,_,L,T,D), teaches(L,U).
+	teaching(L,T,D) :- teaching(_,L,T,D).
+%** }*%
+
+%** @block Room {
+	A room is in use if there is a lecture scheduled in that room
+*%
+	inUse(R,U,T,D) :- lecture(U,R,_,T,D).
+%** }*%
+
+%** @block Unit {
+	A unit is being taught if there is a lecture scheduled for that unit
+*%
+	beingTaught(U,R,T,D) :- lecture(U,R,_,T,D).
+%** } *%
+
+
+%** @postcon StudentClash {
+	A student cannot attend 2 lectures at the same time
+	@never clash
+
+	:- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
+}*%
+
+%** @postcon LecturerClash {
+	A lecturer cannot teach 2 lectures at the same time
+	@never clash
+
+	:- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
+}*%
+
+%** @postcon RoomClash {
+	A room cannot be used for 2 lectures at the same time
+	@never clash 
+:- inUse(R,U1,T,D), inUse(R,U2,T,D), U1 != U2.
+}*%
+
+%** @postcon DuplicateUnit {
+	The same unit cannot be taught in 2 separate lectures
+	@never duplicate
+	:- beingTaught(U,R1,T,D), beingTaught(U,R2,T,D), R1 != R2.
+}*%
+
+%** @postcon Unavailable {
+	A lecturer cannot lecture when they are unavailable
+	@never something
+	:- teaching(L,D,T), unavailable(L,D,T).
+}*%
+
+#show at/6.
+
+%** } *%

@@ -7,19 +7,22 @@ takes(1,prog;1,elec).
 takes(2,prog;2,math).
 lecturer(a).
 lecturer(b).
+lecturer(c).
 teaches(a,prog;a,elec).
 teaches(b,math).
 unavailable(a,10,1;a,11,2).
 unavailable(b,9,1;b,10,2).
 room(102;103).
 capacity(102,4;103,5).
+preferred(a,11,1).
+preferred(b,11,2).
 
 %** @block Timetabler {
 Timetabler which creates a tmetable based on inputs...
 *%
 
 %**
-	@atom day(1..2) 
+	@atom day(1..2)
 	number of teaching days
 
 	@atom timestep(9..12)
@@ -49,8 +52,11 @@ Timetabler which creates a tmetable based on inputs...
 	@atom capacity(R,Z)
 	Room R has capacity Z
 
+	@atom preferred(L,T,D)
+	Lecturer L's preferred teaching times
+
 	@input student/1, unit/1, lecturer/1, room/1, takes/2, teaches/2,
- 	unavailable/2, capacity/2
+ 	unavailable/2, capacity/2, preferred/3, day/1, timestep/1
 
 	@output at/6
 *%
@@ -60,7 +66,7 @@ Timetabler which creates a tmetable based on inputs...
 *%
 
 %** @term U
-	A unit code/name 
+	A unit code/name
 *%
 
 %** @term L
@@ -72,10 +78,10 @@ Timetabler which creates a tmetable based on inputs...
 *%
 
 %** @term Z
-	The number of students a room can hold 
+	The number of students a room can hold
 *%
 
-%** @term T 
+%** @term T
 	A time in the day which ranges from 09:00 to 18:00
 	@from 9,10,11,12,13,14,15,16,17,18
 *%
@@ -83,7 +89,7 @@ Timetabler which creates a tmetable based on inputs...
 %** @term D
 	A day in the week ranging form Monday to Friday
 	@from 1,2,3,4,5
-	
+
 *%
 
 %** @block Schedule {
@@ -97,62 +103,101 @@ Timetabler which creates a tmetable based on inputs...
 	A student is at a lecture, if there is a scheduled lecture for a unit, and the student takes that unit
 *%
 	at(S,U,R,L,T,D):- lecture(U,R,L,T,D), takes(S,U).
-	at(S,U,T,D):- at(S,U,_,_,T,D). 
+	at(S,U,T,D):- at(S,U,_,_,T,D).
+	busy(S,T,D):- at(S,_,T,D).
+
+	%** @postcon StudentClash {
+		A student cannot attend 2 lectures at the same time
+		@never clash
+
+		clash :- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
+	}*%
+
+	clash :- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
+	hasLunch(S) :- not busy(S,12,D), student(S),day(D).
 
 %** }*%
 
 %** @block Lecturer {
 	A lecturer is teaching, if there is a lecture scheduled and the lecturer teaches that unit
 *%
-	teaching(U,L,T,D) :- lecture(U,_,L,T,D), teaches(L,U).
+	teaching(L,U,R,T,D) :- lecture(U,R,L,T,D), teaches(L,U).
+	teaching(U,L,T,D) :- teaching(L,U,_,T,D).
 	teaching(L,T,D) :- teaching(_,L,T,D).
+	teaching(L,U) :- lecture(U,_,L,_,_).
+
+%#show teaching/3.
+%**
+	@precon PreferredClash {
+	A lecturer cannot have preferred lecturetime that is the same as unavailable time
+	@never clash
+
+	clash :- unavailable(L,T,D), teaching(L,T,D).
+	}
+*%
+
+%** @postcon LecturerClash {
+	A lecturer cannot teach 2 lectures at the same time
+	@never clash
+
+	clash :- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
+}*%
+
+%** @postcon Unavailable {
+	A lecturer cannot lecture when they are unavailable
+	@never unavail
+	unavail :- teaching(L,D,T), unavailable(L,D,T).
+}*%
+
+%** @postcon wrongUnit {
+	A lecturer cannot have a lecture for a unit they do not teach
+	@never wrongU
+	wrongU :- teaching(L,U) , not teaches(L,U).
+}*%
+
+	clash :- unavailable(L,T,D), teaching(L,T,D).
+	clash :- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
+	wrongU :- teaching(L,U) , not teaches(L,U).
+	unavail :- teaching(L,D,T), unavailable(L,D,T).
+
 %** }*%
 
 %** @block Room {
 	A room is in use if there is a lecture scheduled in that room
 *%
 	inUse(R,U,T,D) :- lecture(U,R,_,T,D).
+
+	%** @postcon RoomClash {
+		A room cannot be used for 2 lectures at the same time
+		@never clash
+		clash :- inUse(R,U1,T,D), inUse(R,U2,T,D), U1 != U2.
+	}*%
+
+	clash :- inUse(R,U1,T,D), inUse(R,U2,T,D), U1 != U2.
+
 %** }*%
 
 %** @block Unit {
 	A unit is being taught if there is a lecture scheduled for that unit
 *%
 	beingTaught(U,R,T,D) :- lecture(U,R,_,T,D).
+
+	%** @postcon DuplicateUnit {
+		The same unit cannot be taught in 2 separate lectures
+		@never duplicate
+		duplicate :- beingTaught(U,R1,T,D), beingTaught(U,R2,T,D), R1 != R2.
+	}*%
+
+	duplicate :- beingTaught(U,R1,T,D), beingTaught(U,R2,T,D), R1 != R2.
 %** } *%
 
+:- clash.
+:- wrongU.
+:-unavail.
 
-%** @postcon StudentClash {
-	A student cannot attend 2 lectures at the same time
-	@never clash
-
-	:- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
-}*%
-
-%** @postcon LecturerClash {
-	A lecturer cannot teach 2 lectures at the same time
-	@never clash
-
-	:- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
-}*%
-
-%** @postcon RoomClash {
-	A room cannot be used for 2 lectures at the same time
-	@never clash 
-:- inUse(R,U1,T,D), inUse(R,U2,T,D), U1 != U2.
-}*%
-
-%** @postcon DuplicateUnit {
-	The same unit cannot be taught in 2 separate lectures
-	@never duplicate
-	:- beingTaught(U,R1,T,D), beingTaught(U,R2,T,D), R1 != R2.
-}*%
-
-%** @postcon Unavailable {
-	A lecturer cannot lecture when they are unavailable
-	@never something
-	:- teaching(L,D,T), unavailable(L,D,T).
-}*%
-
-#show at/6.
-
+hasPreferred(L) :- teaching(L,T,D), preferred(L,T,D).
+lunch(N) :- N = #count{student(S) : hasLunch(S)}.
+preferred(P) :- P = #count{lecturer(L) : hasPreferred(L)}.
+#maximize {A@1 : preferred(P), A = P}.
+#maximize {B@2 : lunch(N), B = N}.
 %** } *%

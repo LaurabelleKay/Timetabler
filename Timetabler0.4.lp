@@ -1,22 +1,3 @@
-timestep(9..12).
-day(1..2).
-student(1).
-student(2).
-unit(elec;math;prog).
-takes(1,prog;1,elec).
-takes(2,prog;2,math).
-lecturer(a).
-lecturer(b).
-lecturer(c).
-teaches(a,prog;a,elec).
-teaches(b,math).
-unavailable(a,10,1;a,11,2).
-unavailable(b,9,1;b,10,2).
-room(102;103).
-capacity(102,4;103,5).
-preferred(a,11,1).
-preferred(b,11,2).
-
 %** @block Timetabler {
 Timetabler which creates a tmetable based on inputs...
 *%
@@ -95,16 +76,16 @@ Timetabler which creates a tmetable based on inputs...
 %** @block Schedule {
 	%Generate between _ and _ lectures a day. For each unit, generate between _ and _ lectures a week
 *%
-	1{lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
-	1 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 3 :- unit(U).
+	1 {lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
+	3 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 6 :- unit(U).
 %** }*%
 
 %** @block Student {
 	A student is at a lecture, if there is a scheduled lecture for a unit, and the student takes that unit
 *%
-	at(S,U,R,L,T,D):- lecture(U,R,L,T,D), takes(S,U).
-	at(S,U,T,D):- at(S,U,_,_,T,D).
-	busy(S,T,D):- at(S,_,T,D).
+	at(S,U,R,L,T,D) :- lecture(U,R,L,T,D), takes(S,U).
+	at(S,U,T,D) :- at(S,U,_,_,T,D).
+	busy(S,T,D) :- at(S,_,T,D).
 
 	%** @postcon StudentClash {
 		A student cannot attend 2 lectures at the same time
@@ -114,7 +95,10 @@ Timetabler which creates a tmetable based on inputs...
 	}*%
 
 	clash :- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
-	hasLunch(S) :- not busy(S,12,D), student(S),day(D).
+
+
+	hasLunch(S) :- not busy(S,12,D), student(S), day(D).
+	hasLunch(S) :- not busy(S,13,D), student(S), day(D).
 
 %** }*%
 
@@ -200,4 +184,6 @@ lunch(N) :- N = #count{student(S) : hasLunch(S)}.
 preferred(P) :- P = #count{lecturer(L) : hasPreferred(L)}.
 #maximize {A@1 : preferred(P), A = P}.
 #maximize {B@2 : lunch(N), B = N}.
+
+#show at/6.
 %** } *%

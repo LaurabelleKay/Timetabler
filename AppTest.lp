@@ -1,2 +1,0 @@
-works(app).
-works(droidedit).

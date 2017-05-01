@@ -1,8 +1,9 @@
+from __future__ import print_function
 import sys
 import json
 
-datat = open('output').read()
-data = json.loads(datat)
+
+data = json.load(sys.stdin)
 
 f = data["Call"][0]["Witnesses"][0]["Value"]
 i = len(data["Call"][0]["Witnesses"])
@@ -29,44 +30,32 @@ for x in range (1,11):
 for x in range (0,values_count):
     value[x] = data["Call"][0]["Witnesses"][optimum_value]["Value"][x]
 
-temp = [0] * values_count
 roomList = []
 
 for x in range (0,values_count):
-    studentNo,unit,room,lecturer,time,day = value[x].split(",")
+    unit,room,lecturer,time,day = value[x].split(",")
     if room not in roomList:
         roomList.append(room)
 maxInfo = 0
 
 for x in range (0,len(roomList)):
-    Matrix[0][0] = roomList[x]
+    Matrix[0][0] = "Room: " + roomList[x]
     for y in range (0,values_count):
-        studentNo,unit,room,lecturer,time,day = value[y].split(",")
+        unit,room,lecturer,time,day = value[y].split(",")
+        unit = unit[4:]
         info = unit + ", " + lecturer
         if len(info) > maxInfo:
             maxInfo = len(info)
         day = day.rstrip(')')
-        Matrix[int(time) - 8][int(day)] = info
-
-
-for x in range (0,11):
-    for y in range (0,6):
-        print(Matrix[x][y],end = '')
-        spaces = maxInfo - len(Matrix[x][y])
-        for z in range(0,spaces):
-            print(" ", end = '')
+        if room == roomList[x]:
+            Matrix[int(time) - 8][int(day)] = info
+        else:
+            Matrix[int(time) - 8][int(day)] = 0
+    for x in range (0,11):
+        for y in range (0,6):
+            print(Matrix[x][y],end = ' ')
+            spaces = maxInfo - len(str(Matrix[x][y]))
+            for z in range(0,spaces):
+                print(" ", end = '')
+        print("\n")
     print("\n")
-
-#for x in range (0,values_count):
-#    studentNo,unit,room,lecturer,time,day = value[x].split(",")
-#    day = day.rstrip(')')
-
-#studentNo,unit,room,lecturer,time,day = g.split(",")
-#studentNo = studentNo[3:]
-#day = day.rstrip(')')
-#print(studentNo)
-#print(unit)
-#print(room)
-#print(lecturer)
-#print(time)
-#print(day)

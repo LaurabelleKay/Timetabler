@@ -86,6 +86,7 @@ Timetabler which creates a tmetable based on inputs...
 	at(S,U,R,L,T,D) :- lecture(U,R,L,T,D), takes(S,U).
 	at(S,U,T,D) :- at(S,U,_,_,T,D).
 	busy(S,T,D) :- at(S,_,T,D).
+	in(S,R,T,D) :- at(S,_,R,_,T,D).
 
 	%** @postcon StudentClash {
 		A student cannot attend 2 lectures at the same time
@@ -96,9 +97,7 @@ Timetabler which creates a tmetable based on inputs...
 
 	clash :- at(S,U1,T,D), at(S,U2,T,D), U1 != U2.
 
-
 	hasLunch(S) :- not busy(S,12,D), student(S), day(D).
-	hasLunch(S) :- not busy(S,13,D), student(S), day(D).
 
 %** }*%
 
@@ -110,39 +109,41 @@ Timetabler which creates a tmetable based on inputs...
 	teaching(L,T,D) :- teaching(_,L,T,D).
 	teaching(L,U) :- lecture(U,_,L,_,_).
 
-%#show teaching/3.
-%**
-	@precon PreferredClash {
-	A lecturer cannot have preferred lecturetime that is the same as unavailable time
-	@never clash
 
-	clash :- unavailable(L,T,D), teaching(L,T,D).
-	}
-*%
+	%**
+		@precon PreferredClash {
+		A lecturer cannot have preferred lecturetime that is the same as unavailable time
+		@never clash
 
-%** @postcon LecturerClash {
-	A lecturer cannot teach 2 lectures at the same time
-	@never clash
+		clash :- unavailable(L,T,D), preferred(L,T,D).
+	}*%
+
+	clash :- unavailable(L,T,D), preferred(L,T,D).
+
+	%** @postcon LecturerClash {
+		A lecturer cannot teach 2 lectures at the same time
+		@never clash
+
+		clash :- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
+	}*%
 
 	clash :- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
-}*%
 
-%** @postcon Unavailable {
-	A lecturer cannot lecture when they are unavailable
-	@never unavail
+	%** @postcon Unavailable {
+		A lecturer cannot lecture when they are unavailable
+		@never unavail
+		unavail :- teaching(L,D,T), unavailable(L,D,T).
+	}*%
+
 	unavail :- teaching(L,D,T), unavailable(L,D,T).
-}*%
 
-%** @postcon wrongUnit {
-	A lecturer cannot have a lecture for a unit they do not teach
-	@never wrongU
-	wrongU :- teaching(L,U) , not teaches(L,U).
-}*%
+	%** @postcon wrongUnit {
+		A lecturer cannot have a lecture for a unit they do not teach
+		@never wrongU
+		wrongU :- teaching(L,U) , not teaches(L,U).
+	}*%
 
-	clash :- unavailable(L,T,D), teaching(L,T,D).
-	clash :- teaching(U1,L,T,D), teaching(U2,L,T,D), U1 != U2.
 	wrongU :- teaching(L,U) , not teaches(L,U).
-	unavail :- teaching(L,D,T), unavailable(L,D,T).
 
 %** }*%
 
@@ -178,12 +179,16 @@ Timetabler which creates a tmetable based on inputs...
 :- clash.
 :- wrongU.
 :-unavail.
+:- duplicate.
 
 hasPreferred(L) :- teaching(L,T,D), preferred(L,T,D).
 lunch(N) :- N = #count{student(S) : hasLunch(S)}.
 preferred(P) :- P = #count{lecturer(L) : hasPreferred(L)}.
-#maximize {A@1 : preferred(P), A = P}.
-#maximize {B@2 : lunch(N), B = N}.
+#maximize {A@2 : preferred(P), A = P}.
+#maximize {B@1 : lunch(N), B = N}.
 
+occupying(N,R,T,D) :- N = #count{student(S) : in(S,R,T,D)} , room(R), timestep(T), day(D).
+overCapacity :- occupying(N,R,T,D), capacity(R,Z), N > Z.
+:- overCapacity.
 #show at/6.
 %** } *%

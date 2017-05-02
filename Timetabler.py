@@ -7,6 +7,8 @@ data = json.load(sys.stdin)
 
 f = data["Call"][0]["Witnesses"][0]["Value"]
 i = len(data["Call"][0]["Witnesses"])
+
+#Find the value of the optimum answer set
 optimum = data["Models"]["Opt"]
 
 for x in range(0,i):
@@ -16,6 +18,7 @@ for x in range(0,i):
 values_count = len(data["Call"][0]["Witnesses"][optimum_value]["Value"])
 value = [0] * values_count
 
+#Create a matrix with the days and times in
 d,t = 6, 11
 Matrix = [[0 for x in range(d)] for y in range(t)]
 Matrix[0][1] = "Monday"
@@ -26,6 +29,7 @@ Matrix[0][5] = "Friday"
 
 for x in range (1,11):
     Matrix[x][0] = x + 8
+
 
 for x in range (0,values_count):
     value[x] = data["Call"][0]["Witnesses"][optimum_value]["Value"][x]

@@ -1,1 +1,2 @@
-While the timetabler application produces a valid timetable for the inputs provided
+While the timetabler application produces a valid timetable for the inputs provided, for inputs with
+a number of units above (number) the Timetabler cannot (words) 

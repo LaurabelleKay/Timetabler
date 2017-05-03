@@ -1,0 +1,1 @@
+While the timetabler application produces a valid timetable for the inputs provided

@@ -1,3 +1,5 @@
+% Lecturers are mostly unavailable so lectures are confined to around lunchtime
+
 timestep(9..18).
 day(1..5).
 student(1..24).
@@ -48,3 +50,36 @@ unavailable(c,9..10,1..5;c,15..18,1..5).
 
 room(101).
 capacity(101,30).
+
+%* OUTPUT
+clingo version 4.2.1
+Reading from NoLunch.lp ...
+Solving...
+Answer: 1
+lec(electronics,101,a,11,1) lec(electronics,101,a,14,1) lec(mathematics,101,b,12,1) lec(mathematics,101,b,13,1) lec(electronics,101,a,11,2) lec(electronics,101,a,13,2) lec(programming,101,a,14,2) lec(mathematics,101,b,12,2) lec(electronics,101,a,12,3) lec(electronics,101,a,13,3) lec(mathematics,101,b,11,3) lec(mathematics,101,b,14,3) lec(electronics,101,a,12,4) lec(programming,101,a,11,4) lec(mathematics,101,b,13,4) lec(dataStructures,101,b,14,4) lec(programming,101,a,12,5) lec(dataStructures,101,b,11,5) lec(mechanics,101,c,13,5) lec(mechanics,101,c,14,5)
+Optimization: 6 284
+Answer: 2
+lec(electronics,101,a,11,1) lec(electronics,101,a,14,1) lec(mathematics,101,b,12,1) lec(mathematics,101,b,13,1) lec(electronics,101,a,11,2) lec(electronics,101,a,13,2) lec(programming,101,a,14,2) lec(mathematics,101,b,12,2) lec(electronics,101,a,12,3) lec(electronics,101,a,13,3) lec(dataStructures,101,b,11,3) lec(dataStructures,101,b,14,3) lec(electronics,101,a,12,4) lec(dataStructures,101,b,13,4) lec(dataStructures,101,b,14,4) lec(mechanics,101,c,11,4) lec(programming,101,a,12,5) lec(programming,101,a,14,5) lec(dataStructures,101,b,13,5) lec(mechanics,101,c,11,5)
+Optimization: 5 284
+Answer: 3
+lec(dataStructures,101,b,11,1) lec(dataStructures,101,b,12,1) lec(mechanics,101,c,13,1) lec(mechanics,101,c,14,1) lec(dataStructures,101,b,12,2) lec(dataStructures,101,b,14,2) lec(mechanics,101,c,11,2) lec(mechanics,101,c,13,2) lec(electronics,101,a,12,3) lec(mathematics,101,b,14,3) lec(dataStructures,101,b,11,3) lec(dataStructures,101,b,13,3) lec(electronics,101,a,11,4) lec(mathematics,101,b,13,4) lec(dataStructures,101,b,14,4) lec(mechanics,101,c,12,4) lec(programming,101,a,12,5) lec(programming,101,a,14,5) lec(mechanics,101,c,11,5) lec(mechanics,101,c,13,5)
+Optimization: 5 276
+Answer: 4
+lec(electronics,101,a,11,1) lec(mathematics,101,b,12,1) lec(mechanics,101,c,13,1) lec(mechanics,101,c,14,1) lec(electronics,101,a,14,2) lec(programming,101,a,12,2) lec(mechanics,101,c,11,2) lec(mechanics,101,c,13,2) lec(electronics,101,a,11,3) lec(electronics,101,a,13,3) lec(programming,101,a,12,3) lec(programming,101,a,14,3) lec(electronics,101,a,11,4) lec(programming,101,a,12,4) lec(mathematics,101,b,14,4) lec(dataStructures,101,b,13,4) lec(programming,101,a,12,5) lec(dataStructures,101,b,14,5) lec(mechanics,101,c,11,5) lec(mechanics,101,c,13,5)
+Optimization: 3 300
+Answer: 5
+lec(electronics,101,a,11,1) lec(electronics,101,a,12,1) lec(programming,101,a,13,1) lec(dataStructures,101,b,14,1) lec(electronics,101,a,11,2) lec(electronics,101,a,13,2) lec(programming,101,a,12,2) lec(programming,101,a,14,2) lec(electronics,101,a,11,3) lec(electronics,101,a,12,3) lec(programming,101,a,13,3) lec(programming,101,a,14,3) lec(programming,101,a,11,4) lec(programming,101,a,12,4) lec(mathematics,101,b,13,4) lec(mathematics,101,b,14,4) lec(electronics,101,a,12,5) lec(dataStructures,101,b,13,5) lec(mechanics,101,c,11,5) lec(mechanics,101,c,14,5)
+Optimization: 3 284
+Answer: 6
+lec(electronics,101,a,11,1) lec(electronics,101,a,12,1) lec(programming,101,a,13,1) lec(programming,101,a,14,1) lec(electronics,101,a,11,2) lec(electronics,101,a,13,2) lec(programming,101,a,12,2) lec(programming,101,a,14,2) lec(electronics,101,a,11,3) lec(electronics,101,a,13,3) lec(programming,101,a,14,3) lec(dataStructures,101,b,12,3) lec(electronics,101,a,11,4) lec(programming,101,a,12,4) lec(programming,101,a,13,4) lec(mathematics,101,b,14,4) lec(mathematics,101,b,12,5) lec(dataStructures,101,b,13,5) lec(mechanics,101,c,11,5) lec(mechanics,101,c,14,5)
+Optimization: 3 276
+OPTIMUM FOUND
+
+Models       : 1
+  Enumerated : 6
+  Optimum    : yes
+Optimization : 3 276
+Calls        : 1
+Time         : 0.203s (Solving: 0.03s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.190s
+*%

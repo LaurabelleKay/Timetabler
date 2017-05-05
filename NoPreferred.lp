@@ -44,13 +44,10 @@ teaches(a,electronics;a,programming).
 teaches(b,mathematics;b,dataStructures).
 teaches(c,mechanics).
 
-preferred(a,11,1).
-preferred(b,11,2).
-preferred(c,16,1).
+preferred(a,9..11,1..5).
+preferred(b,12..15,1..5).
+preferred(c,15..17,1..5).
 
-unavailable(a,10,1;a,11,2).
-unavailable(b,9,1;b,10,2).
-unavailable(c,13,1;c,16,2).
 
 room(101;102;103;104;105;106).
 

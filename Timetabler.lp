@@ -81,20 +81,13 @@ Timetabler which creates a tmetable based on inputs...
 	and no more than 2 lectures for one unit in the same day.
 *%
 
-	%**
-		@atom lecture(U,R,L,T,D)
-		A scheduled lecture.
-
-		@output lecture/5.
-	*%
-
 	4 {lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
 	2 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 7 :- unit(U).
 	{lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T)} 2 :- unit(U),day(D).
 %** }*%
 
 %** @block Student {
-	Defines a studen't scheduled lectures, times when the student is busy, what
+	Defines a student's scheduled lectures, times when the student is busy, what
 	room a student is in at a given time, and whether or not they have a lunch
 	break.
 *%

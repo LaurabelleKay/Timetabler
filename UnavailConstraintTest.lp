@@ -1,4 +1,5 @@
-%Lecturers are unavailable every hour of the day
+%* Lecturers are unavailable every hour of the day. This should violate the 
+Unavail constraint.*%
 
 timestep(9..18).
 day(1..5).
@@ -50,4 +51,22 @@ room(101;102;103;104;105;106).
 
 capacity(101,10 ; 102,6 ; 103,30 ; 104,10 ; 105,8 ; 106,5).
 
-%Returns: UNSATISFIABLE
+%* OUTPUT
+Models       : 1
+  Enumerated : 2
+  Optimum    : yes
+Optimization : 3 276
+Calls        : 1
+Time         : 1.994s (Solving: 0.95s 1st Model: 0.33s Unsat: 0.53s)
+CPU Time     : 1.990s
+lk411@tux2:~/AI-ASP-public/Timetabler$ clingo UnavailCostraintTest.lp Timetabler.lp
+clingo version 4.2.1
+Reading from UnavailCostraintTest.lp ...
+UNSATISFIABLE
+
+Models       : 0
+Calls        : 1
+Time         : 0.776s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.770s
+*%
+

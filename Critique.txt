@@ -1,2 +1,8 @@
-While the timetabler application produces a valid timetable for the inputs provided, for inputs with
-a number of units above (number) the Timetabler cannot (words) 
+The timetabler creates a timetable which meets the basic and extended specification, however
+there are a few problems with the application. The timetabler struggles to produce a timetable for
+inputs where there are more than 7 units, it either returns no answer sets, or if other parameters are
+adjusted to accommodate for there being more units, the timetabler runs but gets stuck in the optimisation.
+Another issue with the timetabler is that it does not accommodate 2 lecturers teaching the same unit, it
+just produces a timetable in which only one lecturer takes that unit. The timetabler also doesn't have the
+ability to put the student lunch weighting over the preferred lecture weighting, this also causes it to be stuck
+in the optimisation.

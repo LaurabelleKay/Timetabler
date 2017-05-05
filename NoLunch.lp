@@ -38,9 +38,9 @@ teaches(a,electronics;a,programming).
 teaches(b,mathematics;b,dataStructures).
 teaches(c,mechanics).
 
-preferred(a,12,1..2).
-preferred(b,12,3..4).
-preferred(c,12,5).
+preferred(a,12,1..5).
+preferred(b,12,1..5).
+preferred(c,12,1..5).
 
 unavailable(a,10,1;a,11,2;17,2).
 unavailable(b,9,1;b,10,2;b,18,3).

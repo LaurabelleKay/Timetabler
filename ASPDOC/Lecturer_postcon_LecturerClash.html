@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="block" content="text/html;charset=utf-8" /><title>postcon</title><link rel="stylesheet" href="style_cond.css" type="text/css" charset="utf-8" /></head><body><div class="cond"><a name="LecturerClash"><!-- --></a><pre>%**
+@postcon <a href="index.html#Lecturer_postcon_LecturerClash">LecturerClash</a>{
+ &nbsp;A lecturer cannot teach 2 lectures at the same time
+ &nbsp;@never clash
+*%</pre><div class="asp"><pre>
+ &nbsp;<span class="nolink">clash</span> :- <span class="nolink">teaching(U1, L, T, D)</span>, <span class="nolink">teaching(U2, L, T, D)</span>, U1 != U2.</pre></div>
+<pre>%**
+}
+*%
+</pre></div></body></html>

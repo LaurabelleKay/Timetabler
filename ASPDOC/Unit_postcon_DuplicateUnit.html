@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="block" content="text/html;charset=utf-8" /><title>postcon</title><link rel="stylesheet" href="style_cond.css" type="text/css" charset="utf-8" /></head><body><div class="cond"><a name="DuplicateUnit"><!-- --></a><pre>%**
+@postcon <a href="index.html#Unit_postcon_DuplicateUnit">DuplicateUnit</a>{
+ &nbsp;The same unit cannot be taught in 2 separate lectures
+ &nbsp;@never duplicate
+*%</pre><div class="asp"><pre>
+ &nbsp;<span class="nolink">duplicate</span> :- <span class="nolink">beingTaught(U, R1, T, D)</span>, <span class="nolink">beingTaught(U, R2, T, D)</span>, R1 != R2.</pre></div>
+<pre>%**
+}
+*%
+</pre></div></body></html>

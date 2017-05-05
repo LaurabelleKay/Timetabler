@@ -2,7 +2,6 @@ from __future__ import print_function
 import sys
 import json
 
-
 data = json.load(sys.stdin)
 
 f = data["Call"][0]["Witnesses"][0]["Value"]
@@ -59,5 +58,3 @@ for x in range (0,len(roomList)):
                 print(" ", end = '')
         print("\n")
     print("\n")
-
-#studentNo = studentNo[3:]

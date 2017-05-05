@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="block" content="text/html;charset=utf-8" /><title>postcon</title><link rel="stylesheet" href="style_cond.css" type="text/css" charset="utf-8" /></head><body><div class="cond"><a name="wrongUnit"><!-- --></a><pre>%**
+@postcon <a href="index.html#Lecturer_postcon_wrongUnit">wrongUnit</a>{
+ &nbsp;A lecturer cannot have a lecture for a unit they do not teach
+ &nbsp;@never wrongU
+*%</pre><div class="asp"><pre>
+ &nbsp;<span class="nolink">wrongU</span> :- <span class="nolink">teaching(L, U)</span>, <span class="nolink">not teaches(L, U)</span>.</pre></div>
+<pre>%**
+}
+*%
+</pre></div></body></html>

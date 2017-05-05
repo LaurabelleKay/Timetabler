@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="block" content="text/html;charset=utf-8" /><title>ASPDOC</title><link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />	</head><body><div class="block"><div class="blockheader"><h2><a name="DEFAULT"><!-- -->Block DEFAULT</a><span class="source"><a href="code.html#DEFAULT">(Check the source code of block DEFAULT)</a></span></h2></div><div class="blockpart"><pre><b>@block DEFAULT</b>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<a href="#Student">@block Student</a>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<a href="#Room">@block Room</a>
+  |_<a href="#Unit">@block Unit</a></pre><div class="termlist"><h2>Term Descriptions</h2><ul><li><span class="term"><a name="DEFAULT_term_S"><!-- --></a>S:</span> A student number</li><li><span class="term"><a name="DEFAULT_term_U"><!-- --></a>U:</span> A unit code/name</li><li><span class="term"><a name="DEFAULT_term_L"><!-- --></a>L:</span> The name of a lecturer</li><li><span class="term"><a name="DEFAULT_term_R"><!-- --></a>R:</span> A room number</li><li><span class="term"><a name="DEFAULT_term_Z"><!-- --></a>Z:</span> The number of students a room can hold</li><li><span class="term"><a name="DEFAULT_term_T"><!-- --></a>T:</span> A time in the day which ranges from 09:00 to 18:00<div class="range"><ul><li>In interval 9, 10, 11, 12, 13, 14, 15, 16, 17, 18</li></ul></div></li><li><span class="term"><a name="DEFAULT_term_D"><!-- --></a>D:</span> A day in the week ranging form Monday to Friday<div class="range"><ul><li>In interval 1, 2, 3, 4, 5</li></ul></div></li></ul></div><div><h2>Subblocks</h2><div class="block"><div class="blockheader"><h3><a name="Timetabler"><!-- -->Block Timetabler</a><span class="source"><a href="code.html#Timetabler">(Check the source code of block Timetabler)</a></span></h3></div><div class="blockpart"><p>Timetabler which creates a tmetable based on an input file<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<b>@block Timetabler</b>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<a href="#Student">@block Student</a>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<a href="#Room">@block Room</a>
+  |_<a href="#Unit">@block Unit</a></pre><div class="atomlist"><h3>Input Atoms</h3><ul><li><span class="atom"><a name="Timetabler_inputs_student1"><!-- --></a>student(S)
+</span> <br/>A student<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_S">S</a>: </span> A student number 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_unit1"><!-- --></a>unit(U)
+</span> <br/>A unit<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_U">U</a>: </span> A unit code/name 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_lecturer1"><!-- --></a>lecturer(L)
+</span> <br/>A lecturer<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_L">L</a>: </span> The name of a lecturer 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_room1"><!-- --></a>room(R)
+</span> <br/>A room<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_R">R</a>: </span> A room number 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_takes2"><!-- --></a>takes(S, U)
+</span> <br/>Student S takes unit U<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_S">S</a>: </span> A student number 
+</li><li><span class="term"><a href="#DEFAULT_term_U">U</a>: </span> A unit code/name 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_teaches2"><!-- --></a>teaches(L, U)
+</span> <br/>Lecturer L teaches unit U<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_L">L</a>: </span> The name of a lecturer 
+</li><li><span class="term"><a href="#DEFAULT_term_U">U</a>: </span> A unit code/name 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_capacity2"><!-- --></a>capacity(R, Z)
+</span> <br/>Room R has capacity Z<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_R">R</a>: </span> A room number 
+</li><li><span class="term"><a href="#DEFAULT_term_Z">Z</a>: </span> The number of students a room can hold 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_preferred3"><!-- --></a>preferred(L, T, D)
+</span> <br/>Lecturer L's preferred teaching times<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_L">L</a>: </span> The name of a lecturer 
+</li><li><span class="term"><a href="#DEFAULT_term_T">T</a>: </span> A time in the day which ranges from 09:00 to 18:00 
+</li><li><span class="term"><a href="#DEFAULT_term_D">D</a>: </span> A day in the week ranging form Monday to Friday 
+</li></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_day1"><!-- --></a>day(Gringo Interval Term(1,5))
+</span> <br/>number of teaching days<br/><div class="termlist"><div class="termDescription"><ul></ul></div></div></li><li><span class="atom"><a name="Timetabler_inputs_timestep1"><!-- --></a>timestep(Gringo Interval Term(9,18))
+</span> <br/>range of teaching hours defined as 9am to 6pm<br/><div class="termlist"><div class="termDescription"><ul></ul></div></div></li></ul></div><div class="atomlist"><h3>Output Atoms</h3><ul><li><span class="atom"><a name="Timetabler_outputs_lec5"><!-- --></a>lec(U, R, L, T, D)
+</span> <br/>Scheduled lecture for a unit<br/><div class="termlist"><div class="termDescription"><ul><li><span class="term"><a href="#DEFAULT_term_U">U</a>: </span> A unit code/name 
+</li><li><span class="term"><a href="#DEFAULT_term_R">R</a>: </span> A room number 
+</li><li><span class="term"><a href="#DEFAULT_term_L">L</a>: </span> The name of a lecturer 
+</li><li><span class="term"><a href="#DEFAULT_term_T">T</a>: </span> A time in the day which ranges from 09:00 to 18:00 
+</li><li><span class="term"><a href="#DEFAULT_term_D">D</a>: </span> A day in the week ranging form Monday to Friday 
+</li></ul></div></div></li></ul></div></div></div><pre><br/></pre><div class="block"><div class="blockheader"><h3><a name="Schedule"><!-- -->Block Schedule</a><span class="source"><a href="code.html#Schedule">(Check the source code of block Schedule)</a></span></h3></div><div class="blockpart"><p>%Generate greather than 4 lectures a week, between 3 and 7 lectures per unit,<br/>and no more than 2 lectures for one unit in the same day.<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<b>@block Schedule</b>
+  |_<a href="#Student">@block Student</a>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<a href="#Room">@block Room</a>
+  |_<a href="#Unit">@block Unit</a></pre></div></div><pre><br/></pre><div class="block"><div class="blockheader"><h3><a name="Student"><!-- -->Block Student</a><span class="source"><a href="code.html#Student">(Check the source code of block Student)</a></span></h3></div><div class="blockpart"><p>Defines a student's scheduled lectures, times when the student is busy, what<br/>room a student is in at a given time, and whether or not they have a lunch<br/>break.<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<b>@block Student</b>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<a href="#Room">@block Room</a>
+  |_<a href="#Unit">@block Unit</a></pre><div><h3>Postconditions</h3><pre><a name="Student_postcon_StudentClash"><!----></a><a href="Student_postcon_StudentClash.html">StudentClash</a>: A student cannot attend 2 lectures at the same time
+</pre></div></div></div><pre><br/></pre><div class="block"><div class="blockheader"><h3><a name="Lecturer"><!-- -->Block Lecturer</a><span class="source"><a href="code.html#Lecturer">(Check the source code of block Lecturer)</a></span></h3></div><div class="blockpart"><p>Defines when a lecturer is teaching, and if they are teaching at their<br/>preferred time<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<a href="#Student">@block Student</a>
+  |_<b>@block Lecturer</b>
+  |_<a href="#Room">@block Room</a>
+  |_<a href="#Unit">@block Unit</a></pre><div><h3>Preconditions</h3><pre><a name="Lecturer_precon_PreferredClash"><!----></a><a href="Lecturer_precon_PreferredClash.html">PreferredClash</a>: A lecturer cannot have preferred lecturetime that is the same asan unavailable time
+</pre></div><div><h3>Postconditions</h3><pre><a name="Lecturer_postcon_LecturerClash"><!----></a><a href="Lecturer_postcon_LecturerClash.html">LecturerClash</a>: A lecturer cannot teach 2 lectures at the same time
+<a name="Lecturer_postcon_Unavailable"><!----></a><a href="Lecturer_postcon_Unavailable.html">Unavailable</a>: A lecturer cannot lecture when they are unavailable
+<a name="Lecturer_postcon_wrongUnit"><!----></a><a href="Lecturer_postcon_wrongUnit.html">wrongUnit</a>: A lecturer cannot have a lecture for a unit they do not teach
+</pre></div></div></div><pre><br/></pre><div class="block"><div class="blockheader"><h3><a name="Room"><!-- -->Block Room</a><span class="source"><a href="code.html#Room">(Check the source code of block Room)</a></span></h3></div><div class="blockpart"><p>Defines when a room is in use, and when a unit is being taught in that room<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<a href="#Student">@block Student</a>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<b>@block Room</b>
+  |_<a href="#Unit">@block Unit</a></pre><div><h3>Postconditions</h3><pre><a name="Room_postcon_OverCapacity"><!----></a><a href="Room_postcon_OverCapacity.html">OverCapacity</a>: Do not schedule a lecture for a unit in a room with a smaller capacity thanthe number of students taking that unit
+<a name="Room_postcon_RoomClash"><!----></a><a href="Room_postcon_RoomClash.html">RoomClash</a>: A room cannot be used for 2 lectures at the same time
+</pre></div></div></div><pre><br/></pre><div class="block"><div class="blockheader"><h3><a name="Unit"><!-- -->Block Unit</a><span class="source"><a href="code.html#Unit">(Check the source code of block Unit)</a></span></h3></div><div class="blockpart"><p>A unit is being taught if there is a lecture scheduled for that unit<br/></p><pre><a href="#DEFAULT">@block DEFAULT</a>
+  |_<a href="#Timetabler">@block Timetabler</a>
+  |_<a href="#Schedule">@block Schedule</a>
+  |_<a href="#Student">@block Student</a>
+  |_<a href="#Lecturer">@block Lecturer</a>
+  |_<a href="#Room">@block Room</a>
+  |_<b>@block Unit</b></pre><div><h3>Postconditions</h3><pre><a name="Unit_postcon_DuplicateUnit"><!----></a><a href="Unit_postcon_DuplicateUnit.html">DuplicateUnit</a>: The same unit cannot be taught in 2 separate lectures
+</pre></div></div></div></div></div></div></body></html>

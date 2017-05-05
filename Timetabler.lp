@@ -1,5 +1,5 @@
 %** @block Timetabler {
-Timetabler which creates a tmetable based on inputs...
+Timetabler which creates a tmetable based on an input file
 *%
 
 %**

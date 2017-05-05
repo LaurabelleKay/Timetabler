@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="block" content="ASPdoc"/><title>ASPDOC</title><link rel="stylesheet" href="style_code.css" type="text/css" charset="utf-8"/></head><body><div class="doc"><div class="block"><pre>%**
+<a name="DEFAULT"><!-- --></a><code>
+ &nbsp;
+ &nbsp;@term S 
+ &nbsp; &nbsp;A student number
+ &nbsp; &nbsp;
+ &nbsp;@term U 
+ &nbsp; &nbsp;A unit code/name
+ &nbsp; &nbsp;
+ &nbsp;@term L 
+ &nbsp; &nbsp;The name of a lecturer
+ &nbsp; &nbsp;
+ &nbsp;@term R 
+ &nbsp; &nbsp;A room number
+ &nbsp; &nbsp;
+ &nbsp;@term Z 
+ &nbsp; &nbsp;The number of students a room can hold
+ &nbsp; &nbsp;
+ &nbsp;@term T 
+ &nbsp; &nbsp;A time in the day which ranges from 09:00 to 18:00
+ &nbsp; &nbsp;@from 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+ &nbsp; &nbsp;
+ &nbsp;@term D 
+ &nbsp; &nbsp;A day in the week ranging form Monday to Friday
+ &nbsp; &nbsp;@from 1, 2, 3, 4, 5
+ &nbsp; &nbsp;
+ &nbsp;</pre><pre>*%</pre><div class="asp"><pre>
+:- <span class="nolink">clash</span>.
+:- <span class="nolink">wrongU</span>.
+:- <span class="nolink">unavail</span>.
+:- <span class="nolink">duplicate</span>.
+:- <span class="nolink">overCapacity</span>.
+<span class="nolink">lec(U, R, L, T, D)</span> :- <span class="nolink">at(_, U, R, L, T, D)</span>.
+
+#show <span class="nolink">lec(_, _, _, _, _)</span>.
+
+</pre></div><div class="block"><pre>%**
+<a name="Timetabler"><!-- --></a><code>@block <a href="index.html#Timetabler">Timetabler</a></code>{
+ &nbsp;Timetabler which creates a tmetable based on an input file
+ &nbsp;
+ &nbsp;@atom day(Gringo Interval Term(1,5))
+ &nbsp; &nbsp;number of teaching days
+ &nbsp; &nbsp;
+ &nbsp;@atom timestep(Gringo Interval Term(9,18))
+ &nbsp; &nbsp;range of teaching hours defined as 9am to 6pm
+ &nbsp; &nbsp;
+ &nbsp;@atom student(S)
+ &nbsp; &nbsp;A student
+ &nbsp; &nbsp;
+ &nbsp;@atom unit(U)
+ &nbsp; &nbsp;A unit
+ &nbsp; &nbsp;
+ &nbsp;@atom lecturer(L)
+ &nbsp; &nbsp;A lecturer
+ &nbsp; &nbsp;
+ &nbsp;@atom room(R)
+ &nbsp; &nbsp;A room
+ &nbsp; &nbsp;
+ &nbsp;@atom takes(S, U)
+ &nbsp; &nbsp;Student S takes unit U
+ &nbsp; &nbsp;
+ &nbsp;@atom teaches(L, U)
+ &nbsp; &nbsp;Lecturer L teaches unit U
+ &nbsp; &nbsp;
+ &nbsp;@atom unavailable(L, T, D)
+ &nbsp; &nbsp;Lecturer L is unavailable at time T on day D
+ &nbsp; &nbsp;
+ &nbsp;@atom capacity(R, Z)
+ &nbsp; &nbsp;Room R has capacity Z
+ &nbsp; &nbsp;
+ &nbsp;@atom preferred(L, T, D)
+ &nbsp; &nbsp;Lecturer L's preferred teaching times
+ &nbsp; &nbsp;
+ &nbsp;@atom lec(U, R, L, T, D)
+ &nbsp; &nbsp;Scheduled lecture for a unit
+ &nbsp; &nbsp;
+ &nbsp;@input <a href="index.html#Timetabler_inputs_student1">student/1</a>, &nbsp;<a href="index.html#Timetabler_inputs_unit1">unit/1</a>, &nbsp;<a href="index.html#Timetabler_inputs_lecturer1">lecturer/1</a>, &nbsp;<a href="index.html#Timetabler_inputs_room1">room/1</a>, &nbsp;<a href="index.html#Timetabler_inputs_takes2">takes/2</a>, &nbsp;<a href="index.html#Timetabler_inputs_teaches2">teaches/2</a>, &nbsp;<a href="index.html#Timetabler_inputs_unavailable2">unavailable/2</a>, &nbsp;<a href="index.html#Timetabler_inputs_capacity2">capacity/2</a>, &nbsp;<a href="index.html#Timetabler_inputs_preferred3">preferred/3</a>, &nbsp;<a href="index.html#Timetabler_inputs_day1">day/1</a>, &nbsp;<a href="index.html#Timetabler_inputs_timestep1">timestep/1</a>
+ &nbsp;@output <a href="index.html#Timetabler_outputs_lec5">lec/5</a></pre><pre>}
+*%
+</pre></div>
+<div class="block"><pre>%**
+<a name="Schedule"><!-- --></a><code>@block <a href="index.html#Schedule">Schedule</a></code>{
+ &nbsp;%Generate greather than 4 lectures a week, between 3 and 7 lectures per unit,
+ &nbsp;and no more than 2 lectures for one unit in the same day.
+ &nbsp;
+ &nbsp;</pre><pre>*%</pre><div class="asp"><pre>
+4 {<span class="nolink">lecture(U, R, L, T, D): <span class="nolink">unit(U)</span>, <span class="nolink">room(R)</span>, <span class="nolink">lecturer(L)</span>, <span class="nolink">timestep(T)</span></span>} :- <span class="nolink">day(D)</span>.
+2 {<span class="nolink">lecture(U, R, L, T, D): <span class="nolink">room(R)</span>, <span class="nolink">lecturer(L)</span>, <span class="nolink">timestep(T)</span>, <span class="nolink">day(D)</span></span>} 7 :- <span class="nolink">unit(U)</span>.
+{<span class="nolink">lecture(U, R, L, T, D): <span class="nolink">room(R)</span>, <span class="nolink">lecturer(L)</span>, <span class="nolink">timestep(T)</span></span>} 2 :- <span class="nolink">unit(U)</span>, <span class="nolink">day(D)</span>.
+
+</pre></div><pre>%**
+}
+*%
+</pre></div>
+<div class="block"><pre>%**
+<a name="Student"><!-- --></a><code>@block <a href="index.html#Student">Student</a></code>{
+ &nbsp;Defines a student's scheduled lectures, times when the student is busy, what
+ &nbsp;room a student is in at a given time, and whether or not they have a lunch
+ &nbsp;break.
+ &nbsp;
+ &nbsp;</pre><div class="condition"><pre>
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Student_postcon_StudentClash">StudentClash</a></span>{
+ &nbsp; &nbsp;A student cannot attend 2 lectures at the same time
+ &nbsp; &nbsp;@never clash
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">clash</span> :- <span class="nolink">at(S, U1, T, D)</span>, <span class="nolink">at(S, U2, T, D)</span>, U1 != U2.
+ &nbsp;}
+ &nbsp;</pre></div><pre>*%</pre><div class="asp"><pre>
+%*
+ &nbsp;A student is at a lecture at a certain time if there is a scheduled lecture
+ &nbsp;for a unit they take
+*%
+<span class="nolink">at(S, U, R, L, T, D)</span> :- <span class="nolink">lecture(U, R, L, T, D)</span>, <span class="nolink">takes(S, U)</span>.
+<span class="nolink">at(S, U, T, D)</span> :- <span class="nolink">at(S, U, _, _, T, D)</span>.
+<span class="nolink">busy(S, T, D)</span> :- <span class="nolink">at(S, _, T, D)</span>.
+<span class="nolink">in(S, R, T, D)</span> :- <span class="nolink">at(S, _, R, _, T, D)</span>.
+% A student has a lunch period if they have no lecture at 12
+<span class="nolink">hasLunch(S)</span> :- <span class="nolink">not busy(S, 12, D)</span>, <span class="nolink">student(S)</span>, <span class="nolink">day(D)</span>.
+% hasLunch(S) :- not busy(S,13,D), student(S), day(D).
+% Count the number of students that have a lunch period
+<span class="nolink">lunch(N)</span> :- N = #count{student(S):<span class="nolink">hasLunch(S)</span>}.
+<span class="nolink">clash</span> :- <span class="nolink">at(S, U1, T, D)</span>, <span class="nolink">at(S, U2, T, D)</span>, U1 != U2.
+
+#maximize{A@1}.
+
+</pre></div><pre>%**
+}
+*%
+</pre></div>
+<div class="block"><pre>%**
+<a name="Lecturer"><!-- --></a><code>@block <a href="index.html#Lecturer">Lecturer</a></code>{
+ &nbsp;Defines when a lecturer is teaching, and if they are teaching at their
+ &nbsp;preferred time
+ &nbsp;
+ &nbsp;</pre><div class="condition"><pre>
+ &nbsp;@precon <span class="conheader"><a href="index.html#Lecturer_precon_PreferredClash">PreferredClash</a></span>{
+ &nbsp; &nbsp;A lecturer cannot have preferred lecturetime that is the same as
+ &nbsp; &nbsp;an unavailable time
+ &nbsp; &nbsp;@never clash
+ &nbsp; &nbsp;<span class="nolink">clash</span> :- <span class="nolink">unavailable(L, T, D)</span>, <span class="nolink">preferred(L, T, D)</span>.
+ &nbsp;}
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Lecturer_postcon_LecturerClash">LecturerClash</a></span>{
+ &nbsp; &nbsp;A lecturer cannot teach 2 lectures at the same time
+ &nbsp; &nbsp;@never clash
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">clash</span> :- <span class="nolink">teaching(U1, L, T, D)</span>, <span class="nolink">teaching(U2, L, T, D)</span>, U1 != U2.
+ &nbsp;}
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Lecturer_postcon_Unavailable">Unavailable</a></span>{
+ &nbsp; &nbsp;A lecturer cannot lecture when they are unavailable
+ &nbsp; &nbsp;@never unavail
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">unavail</span> :- <span class="nolink">teaching(L, D, T)</span>, <span class="nolink">unavailable(L, D, T)</span>.
+ &nbsp;}
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Lecturer_postcon_wrongUnit">wrongUnit</a></span>{
+ &nbsp; &nbsp;A lecturer cannot have a lecture for a unit they do not teach
+ &nbsp; &nbsp;@never wrongU
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">wrongU</span> :- <span class="nolink">teaching(L, U)</span>, <span class="nolink">not teaches(L, U)</span>.
+ &nbsp;}
+ &nbsp;</pre></div><pre>*%</pre><div class="asp"><pre>
+<span class="nolink">teaching(L, U, R, T, D)</span> :- <span class="nolink">lecture(U, R, L, T, D)</span>, <span class="nolink">teaches(L, U)</span>.
+<span class="nolink">teaching(U, L, T, D)</span> :- <span class="nolink">teaching(L, U, _, T, D)</span>.
+<span class="nolink">teaching(L, T, D)</span> :- <span class="nolink">teaching(_, L, T, D)</span>.
+<span class="nolink">teaching(L, U)</span> :- <span class="nolink">lecture(U, _, L, _, _)</span>.
+<span class="nolink">clash</span> :- <span class="nolink">unavailable(L, T, D)</span>, <span class="nolink">preferred(L, T, D)</span>.
+<span class="nolink">hasPreferred(L)</span> :- <span class="nolink">teaching(L, T, D)</span>, <span class="nolink">preferred(L, T, D)</span>.
+% Count the number of times a lecturer is teaching at their preferred time
+<span class="nolink">preferred(P)</span> :- P = #count{lecturer(L):<span class="nolink">hasPreferred(L)</span>}.
+<span class="nolink">clash</span> :- <span class="nolink">teaching(U1, L, T, D)</span>, <span class="nolink">teaching(U2, L, T, D)</span>, U1 != U2.
+<span class="nolink">unavail</span> :- <span class="nolink">teaching(L, D, T)</span>, <span class="nolink">unavailable(L, D, T)</span>.
+<span class="nolink">wrongU</span> :- <span class="nolink">teaching(L, U)</span>, <span class="nolink">not teaches(L, U)</span>.
+
+#maximize{B@2}.
+
+</pre></div><pre>%**
+}
+*%
+</pre></div>
+<div class="block"><pre>%**
+<a name="Room"><!-- --></a><code>@block <a href="index.html#Room">Room</a></code>{
+ &nbsp;Defines when a room is in use, and when a unit is being taught in that room
+ &nbsp;
+ &nbsp;</pre><div class="condition"><pre>
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Room_postcon_OverCapacity">OverCapacity</a></span>{
+ &nbsp; &nbsp;Do not schedule a lecture for a unit in a room with a smaller capacity than
+ &nbsp; &nbsp;the number of students taking that unit
+ &nbsp; &nbsp;@never overCapacity
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">overCapacity</span> :- <span class="nolink">occupying(N, R, T, D)</span>, <span class="nolink">capacity(R, Z)</span>, N &gt; Z.
+ &nbsp;}
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Room_postcon_RoomClash">RoomClash</a></span>{
+ &nbsp; &nbsp;A room cannot be used for 2 lectures at the same time
+ &nbsp; &nbsp;@never clash
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">clash</span> :- <span class="nolink">inUse(R, U1, T, D)</span>, <span class="nolink">inUse(R, U2, T, D)</span>, U1 != U2.
+ &nbsp;}
+ &nbsp;</pre></div><pre>*%</pre><div class="asp"><pre>
+<span class="nolink">inUse(R, U, T, D)</span> :- <span class="nolink">lecture(U, R, _, T, D)</span>.
+% Count the number of students in a room at a certain time
+<span class="nolink">occupying(N, R, T, D)</span> :- N = #count{student(S):<span class="nolink">in(S, R, T, D)</span>}, <span class="nolink">room(R)</span>, <span class="nolink">timestep(T)</span>, <span class="nolink">day(D)</span>.
+<span class="nolink">overCapacity</span> :- <span class="nolink">occupying(N, R, T, D)</span>, <span class="nolink">capacity(R, Z)</span>, N &gt; Z.
+<span class="nolink">clash</span> :- <span class="nolink">inUse(R, U1, T, D)</span>, <span class="nolink">inUse(R, U2, T, D)</span>, U1 != U2.
+
+</pre></div><pre>%**
+}
+*%
+</pre></div>
+<div class="block"><pre>%**
+<a name="Unit"><!-- --></a><code>@block <a href="index.html#Unit">Unit</a></code>{
+ &nbsp;A unit is being taught if there is a lecture scheduled for that unit
+ &nbsp;
+ &nbsp;</pre><div class="condition"><pre>
+ &nbsp;@postcon <span class="conheader"><a href="index.html#Unit_postcon_DuplicateUnit">DuplicateUnit</a></span>{
+ &nbsp; &nbsp;The same unit cannot be taught in 2 separate lectures
+ &nbsp; &nbsp;@never duplicate
+ &nbsp; &nbsp;
+ &nbsp; &nbsp;<span class="nolink">duplicate</span> :- <span class="nolink">beingTaught(U, R1, T, D)</span>, <span class="nolink">beingTaught(U, R2, T, D)</span>, R1 != R2.
+ &nbsp;}
+ &nbsp;</pre></div><pre>*%</pre><div class="asp"><pre>
+<span class="nolink">beingTaught(U, R, T, D)</span> :- <span class="nolink">lecture(U, R, _, T, D)</span>.
+<span class="nolink">duplicate</span> :- <span class="nolink">beingTaught(U, R1, T, D)</span>, <span class="nolink">beingTaught(U, R2, T, D)</span>, R1 != R2.
+
+</pre></div><pre>%**
+}
+*%
+</pre></div>
+</div>
+</div></body></html>

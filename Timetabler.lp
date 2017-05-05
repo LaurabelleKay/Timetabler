@@ -3,10 +3,10 @@ Timetabler which creates a tmetable based on inputs...
 *%
 
 %**
-	@atom day(1..2)
+	@atom day(1..5)
 	number of teaching days
 
-	@atom timestep(9..12)
+	@atom timestep(9..18)
 	range of teaching hours defined as 9am to 6pm
 
 	@atom student(S)
@@ -80,6 +80,14 @@ Timetabler which creates a tmetable based on inputs...
 	%Generate greather than 4 lectures a week, between 3 and 7 lectures per unit,
 	and no more than 2 lectures for one unit in the same day.
 *%
+
+	%**
+		@atom lecture(U,R,L,T,D)
+		A scheduled lecture.
+
+		@output lecture/5.
+	*%
+
 	4 {lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
 	2 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 7 :- unit(U).
 	{lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T)} 2 :- unit(U),day(D).
@@ -220,4 +228,5 @@ Timetabler which creates a tmetable based on inputs...
 
 lec(U,R,L,T,D) :- at(_,U,R,L,T,D).
 #show lec/5.
+
 %** } *%

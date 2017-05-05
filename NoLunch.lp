@@ -1,7 +1,7 @@
 timestep(9..18).
 day(1..5).
 student(1..24).
-unit(electronics;programming;mathematics;mechanics;dataStructures;physics).
+unit(electronics;programming;mathematics;mechanics;dataStructures).
 
 takes(1,electronics;1,programming;1,mathematics).
 takes(2,electronics;2,programming;2,mathematics).
@@ -21,14 +21,14 @@ takes(14,dataStructures;14,programming;14,mathematics).
 takes(15,dataStructures;15,programming;15,mathematics).
 takes(16,dataStructures;16,programming;16,mathematics).
 
-takes(17,mechanics;17,programming;17,mathematics;17,physics).
-takes(18,mechanics;18,programming;18,mathematics;18,physics).
-takes(19,mechanics;19,programming;19,mathematics;19,physics).
-takes(20,mechanics;20,programming;20,mathematics;20,physics).
-takes(21,mechanics;21,programming;21,mathematics;21,physics).
-takes(22,mechanics;22,programming;22,mathematics;22,physics).
-takes(23,mechanics;23,programming;23,mathematics;23,physics).
-takes(24,mechanics;24,programming;24,mathematics;24,physics).
+takes(17,mechanics;17,programming;17,mathematics).
+takes(18,mechanics;18,programming;18,mathematics).
+takes(19,mechanics;19,programming;19,mathematics).
+takes(20,mechanics;20,programming;20,mathematics).
+takes(21,mechanics;21,programming;21,mathematics).
+takes(22,mechanics;22,programming;22,mathematics).
+takes(23,mechanics;23,programming;23,mathematics).
+takes(24,mechanics;24,programming;24,mathematics).
 
 lecturer(a).
 lecturer(b).
@@ -38,14 +38,13 @@ teaches(a,electronics;a,programming).
 teaches(b,mathematics;b,dataStructures).
 teaches(c,mechanics).
 
-preferred(a,12,1..5).
-preferred(b,12,1..5).
-preferred(c,12,1..5).
+preferred(a,9,1;a,12,1;a,12,2;a,10,3;a,11,3;a,9,4;a,10,4;a,9,5).
+preferred(b,10,1;b,9,2;b,11,2;b,12,3;b,11,4;b,10,5;b,12,5).
+preferred(c,11,1;c,10,2;c,9,3;c,12,4;c,11,5).
 
-unavailable(a,10,1;a,11,2;17,2).
-unavailable(b,9,1;b,10,2;b,18,3).
-unavailable(c,13,1;c,16,2).
+unavailable(a,13..18,1..5).
+unavailable(b,13..18,1..5).
+unavailable(c,13..18,1..5).
 
-room(101;102;103;104;105;106).
-
-capacity(101,10 ; 102,6 ; 103,30 ; 104,10 ; 105,8 ; 106,5).
+room(101).
+capacity(101,30).

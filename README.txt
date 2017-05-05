@@ -6,3 +6,6 @@ In order to display the output as a table, use command 2: clingo input.lp Timtab
 
 Constraint Test input files have 'ConstraintTest' at the end of their names and should be run using command 1, other input files / test files may be run using either command.
 
+3 input files Input1.lp, Input2.lp and Input3.lp produce a timetable.
+1 input file Input4.lp fails to produce a timetable.
+There are (((4/5))) files which test that the constraints cannot be violated.

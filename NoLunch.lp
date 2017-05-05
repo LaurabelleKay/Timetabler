@@ -1,7 +1,7 @@
 timestep(9..18).
 day(1..5).
 student(1..24).
-unit(electronics;programming;mathematics;mechanics;dataStructures).
+unit(electronics;programming;mathematics;mechanics;dataStructures;physics).
 
 takes(1,electronics;1,programming;1,mathematics).
 takes(2,electronics;2,programming;2,mathematics).
@@ -21,14 +21,14 @@ takes(14,dataStructures;14,programming;14,mathematics).
 takes(15,dataStructures;15,programming;15,mathematics).
 takes(16,dataStructures;16,programming;16,mathematics).
 
-takes(17,mechanics;17,programming;17,mathematics).
-takes(18,mechanics;18,programming;18,mathematics).
-takes(19,mechanics;19,programming;19,mathematics).
-takes(20,mechanics;20,programming;20,mathematics).
-takes(21,mechanics;21,programming;21,mathematics).
-takes(22,mechanics;22,programming;22,mathematics).
-takes(23,mechanics;23,programming;23,mathematics).
-takes(24,mechanics;24,programming;24,mathematics).
+takes(17,mechanics;17,programming;17,mathematics;17,physics).
+takes(18,mechanics;18,programming;18,mathematics;18,physics).
+takes(19,mechanics;19,programming;19,mathematics;19,physics).
+takes(20,mechanics;20,programming;20,mathematics;20,physics).
+takes(21,mechanics;21,programming;21,mathematics;21,physics).
+takes(22,mechanics;22,programming;22,mathematics;22,physics).
+takes(23,mechanics;23,programming;23,mathematics;23,physics).
+takes(24,mechanics;24,programming;24,mathematics;24,physics).
 
 lecturer(a).
 lecturer(b).

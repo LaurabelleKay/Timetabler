@@ -35,8 +35,6 @@ lecturer(a).
 lecturer(b).
 lecturer(c).
 
-poop.
-
 teaches(a,electronics;a,programming).
 teaches(b,mathematics;b,dataStructures).
 teaches(c,mechanics).
@@ -53,4 +51,19 @@ room(101;102;103;104;105;106).
 
 capacity(101,10 ; 102,6 ; 103,20 ; 104,10 ; 105,8 ; 106,5).
 
-%Returns: UNSATISFIABLE
+%* OUTPUT
+Models       : 0
+Calls        : 1
+Time         : 0.752s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.750s
+lk411@tux2:~/AI-ASP-public/Timetabler$ ^C
+lk411@tux2:~/AI-ASP-public/Timetabler$ clingo ClashConstraintTest.lp Timetabler.lp
+clingo version 4.2.1
+Reading from ClashConstraintTest.lp ...
+UNSATISFIABLE
+
+Models       : 0
+Calls        : 1
+Time         : 0.658s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.640s
+*%

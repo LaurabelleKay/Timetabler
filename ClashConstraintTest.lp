@@ -1,4 +1,6 @@
-%A lecturer has a preferred time the same as a time they are unavailble
+%*A lecturer has a preferred time the same as a time they are unavailable. This should violate
+the clash constraint*%
+
 timestep(9..18).
 day(1..5).
 student(1..24).

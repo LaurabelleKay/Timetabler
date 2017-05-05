@@ -1,4 +1,5 @@
-%No rooms are large enough to contain the maximum number of students taking a unit.
+%*No rooms are large enough to contain the maximum number of students taking a unit. This should violate
+the overCapacity constraint*%
 
 timestep(9..18).
 day(1..5).
@@ -51,3 +52,24 @@ unavailable(c,13,1;c,16,2).
 room(101;102;103;104;105;106).
 
 capacity(101,10 ; 102,6 ; 103,10 ; 104,10 ; 105,8 ; 106,5).
+
+%* OUTPUT
+Models       : 1
+  Enumerated : 8
+  Optimum    : yes
+Optimization : 7 496
+Calls        : 1
+Time         : 3.350s (Solving: 1.85s 1st Model: 0.35s Unsat: 1.03s)
+CPU Time     : 3.320s
+lk411@tux2:~/AI-ASP-public/Timetabler$ clingo CapacityConstraintTest.lp Timetabler.lp
+clingo version 4.2.1
+Reading from CapacityConstraintTest.lp ...
+Solving...
+UNSATISFIABLE
+
+Models       : 0
+Calls        : 1
+Time         : 1.673s (Solving: 0.69s 1st Model: 0.00s Unsat: 0.69s)
+CPU Time     : 1.670s
+*%
+

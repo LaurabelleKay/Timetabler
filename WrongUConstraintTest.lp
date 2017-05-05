@@ -1,6 +1,6 @@
-%No lecturer to take electronics and programming, as every unit must have a lecture scheduled and
-%lecturers cannot take a unit they do not teach, this should produce no answer sets as there are
-%no sets where elec or prog is being taken and the lecturer doesn't take the unit
+%* No lecturer to take electronics and programming, as every unit must have a lecture scheduled and
+lecturers cannot take a unit they do not teach, this should produce no answer sets as there are
+no sets where elec or prog is being taken and the lecturer doesn't take the unit *%
 
 timestep(9..18).
 day(1..5).
@@ -54,4 +54,19 @@ room(101;102;103;104;105;106).
 
 capacity(101,10 ; 102,6 ; 103,30 ; 104,10 ; 105,8 ; 106,5).
 
-%Returns: UNSATISFIABLE
+%* OUTPUT
+Models       : 0
+Calls        : 1
+Time         : 0.776s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.770s
+lk411@tux2:~/AI-ASP-public/Timetabler$ ^C
+lk411@tux2:~/AI-ASP-public/Timetabler$ clingo WrongUConstraintTest.lp Timetabler.lp
+clingo version 4.2.1
+Reading from WrongUConstraintTest.lp ...
+UNSATISFIABLE
+
+Models       : 0
+Calls        : 1
+Time         : 0.752s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.750s
+*%

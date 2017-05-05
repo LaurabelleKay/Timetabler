@@ -38,13 +38,13 @@ teaches(a,electronics;a,programming).
 teaches(b,mathematics;b,dataStructures).
 teaches(c,mechanics).
 
-preferred(a,9,1;a,12,1;a,12,2;a,10,3;a,11,3;a,9,4;a,10,4;a,9,5).
-preferred(b,10,1;b,9,2;b,11,2;b,12,3;b,11,4;b,10,5;b,12,5).
-preferred(c,11,1;c,10,2;c,9,3;c,12,4;c,11,5).
+preferred(a,12..13,1;a,12,2;a,11,3;a,14,3;a,13..14,4;a,13,5).
+preferred(b,14,1;b,11,2;b,13,2;b,12,3;b,11,4;b,12,5;b,14,5).
+preferred(c,11,1,;c,14,2;c,13,3;c,12,4;c,11,5).
 
-unavailable(a,13..18,1..5).
-unavailable(b,13..18,1..5).
-unavailable(c,13..18,1..5).
+unavailable(a,9..10,1..5;a,15..18,1..5).
+unavailable(b,9..10,1..5;b,15..18,1..5).
+unavailable(c,9..10,1..5;c,15..18,1..5).
 
 room(101).
 capacity(101,30).

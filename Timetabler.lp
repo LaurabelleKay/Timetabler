@@ -81,7 +81,7 @@ Timetabler which creates a tmetable based on inputs...
 	and no more than 2 lectures for one unit in the same day.
 *%
 	4 {lecture(U,R,L,T,D):unit(U),room(R),lecturer(L),timestep(T)} :- day(D).
-	3 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 7 :- unit(U).
+	2 {lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T),day(D)} 7 :- unit(U).
 	{lecture(U,R,L,T,D):room(R),lecturer(L),timestep(T)} 2 :- unit(U),day(D).
 %** }*%
 
@@ -100,6 +100,7 @@ Timetabler which creates a tmetable based on inputs...
 
 	%A student has a lunch period if they have no lecture at 12
 	hasLunch(S) :- not busy(S,12,D), student(S), day(D).
+	%hasLunch(S) :- not busy(S,13,D), student(S), day(D).
 
 	%Count the number of students that have a lunch period
 	lunch(N) :- N = #count{student(S) : hasLunch(S)}.
@@ -218,6 +219,5 @@ Timetabler which creates a tmetable based on inputs...
 :- overCapacity.
 
 lec(U,R,L,T,D) :- at(_,U,R,L,T,D).
-
 #show lec/5.
 %** } *%

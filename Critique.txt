@@ -5,4 +5,5 @@ adjusted to accommodate for there being more units, the timetabler runs but gets
 Another issue with the timetabler is that it does not accommodate 2 lecturers teaching the same unit, it
 just produces a timetable in which only one lecturer takes that unit. The timetabler also doesn't have the
 ability to put the student lunch weighting over the preferred lecture weighting, this also causes it to be stuck
-in the optimisation.
+in the optimisation. There is no test for the duplicate constraint as attempting to violate this constraint
+violated other constraint, making it difficult to test it independently.

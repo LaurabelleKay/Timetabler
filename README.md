@@ -1,5 +1,8 @@
 #ASP Timetabler
 
+##Prerequisites
+* [Clingo](https://potassco.org/clingo/) - An ASP system to ground and solve logic programs
+
 ##Running the application
 The timetabler application is run using command 1: clingo input.lp Timetabler.lp
 where input is one of the input files provided.

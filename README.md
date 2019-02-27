@@ -1,9 +1,9 @@
-ASP Timetabler
+# ASP Timetabler
 
-Prerequisites
+### Prerequisites
 * [Clingo](https://potassco.org/clingo/) - An ASP system to ground and solve logic programs
 
-Running the application
+### Running the application
 The timetabler application is run using command 1: clingo input.lp Timetabler.lp
 where input is one of the input files provided.
 
@@ -14,7 +14,7 @@ This output is a timetable for every room with lectures scheduled in them.
 
 Constraint Test input files have 'ConstraintTest' at the end of their names and should be run using command 1, other input files / test files may be run using either command.
 
-Input File Descriptions
+### Input File Descriptions
 3 input files Input1.lp, Input2.lp and Input3.lp produce a timetable.
 1 input file Input4.lp fails to produce a timetable.
 There are 4 files which test that the constraints cannot be violated.
